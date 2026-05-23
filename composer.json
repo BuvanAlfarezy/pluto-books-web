@@ -3,7 +3,7 @@
     "autoload": {
         "psr-4": {
             "Advan\\BooksWeb\\": "app/",
-            "Advan\\BooksWeb\\Core\\": "app/"
+            "Advan\\BooksWeb\\Core\\": "core/"
         }
     },
     "autoload-dev": {
