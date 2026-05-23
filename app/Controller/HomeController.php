@@ -2,8 +2,8 @@
 
 namespace Advan\BooksWeb\Controller;
 
-use Advan\BooksWe\Core\Controller;
-use Advan\BooksWe\Config\Database;
+use Advan\BooksWeb\Core\Controller;
+use Advan\BooksWeb\Config\Database;
 
 class HomeController extends Controller
 {
