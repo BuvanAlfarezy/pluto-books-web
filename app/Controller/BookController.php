@@ -2,7 +2,7 @@
 
 namespace Advan\BooksWeb\Controller;
 
-use Advan\BooksWeb\Model\Admin;
+use Advan\BooksWeb\Model\Book;
 
 class BookController
 {
