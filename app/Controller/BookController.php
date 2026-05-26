@@ -68,45 +68,55 @@ class BookController
     }
 
     public function edit($id)
-    {
-        $this->checkAdmin();
+{
+    $this->checkAdmin();
 
-        $bookModel = new Book();
-        $book = $bookModel->find($id);
+    $bookModel = new Book();
+    $book = $bookModel->find($id);
 
-        require __DIR__ . '/../View/Admin/edit-book.php';
-    }
-
-    public function update($id)
-    {
-        $this->checkAdmin();
-
-        $bookModel = new Book();
-        $oldBook = $bookModel->find($id);
-
-        $coverName = $oldBook['cover'];
-
-        if (!empty($_FILES['cover']['name'])) {
-            $coverName = time() . '-' . $_FILES['cover']['name'];
-
-            move_uploaded_file(
-                $_FILES['cover']['tmp_name'],
-                __DIR__ . '/../../public/uploads/' . $coverName
-            );
-        }
-
-        $bookModel->update($id, [
-            'title' => $_POST['title'],
-            'author' => $_POST['author'],
-            'category' => $_POST['category'],
-            'language' => $_POST['language'],
-            'cover' => $coverName,
-            'file_url' => $_POST['file_url'],
-        ]);
-
-        header('Location: /admin/books');
+    if (!$book) {
+        echo "Buku dengan ID $id tidak ditemukan";
         exit;
     }
+
+    require __DIR__ . '/../View/Admin/edit-book.php';
+}
+
+    public function update($id)
+{
+    $this->checkAdmin();
+
+    $bookModel = new Book();
+    $oldBook = $bookModel->find($id);
+
+    if (!$oldBook) {
+        echo "Buku dengan ID $id tidak ditemukan";
+        exit;
+    }
+
+    $coverName = $oldBook['cover'];
+
+    if (!empty($_FILES['cover']['name'])) {
+        $coverName = time() . '-' . $_FILES['cover']['name'];
+
+        move_uploaded_file(
+            $_FILES['cover']['tmp_name'],
+            __DIR__ . '/../../public/uploads/' . $coverName
+        );
+    }
+
+    $bookModel->update($id, [
+        'title' => $_POST['title'],
+        'author' => $_POST['author'],
+        'category' => $_POST['category'],
+        'language' => $_POST['language'],
+        'cover' => $coverName,
+        'file_url' => $_POST['file_url'],
+    ]);
+
+    header('Location: /admin/books');
+    exit;
+}
 
     public function destroy($id)
     {
