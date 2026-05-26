@@ -33,8 +33,10 @@
     <!-- Mini Stats -->
     <div class="mt-14 md:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 w-full max-w-190">
       <div class="border border-gray-500 rounded-2xl px-8 py-4">
-        <h3 class="text-2xl md:text-3xl font-bold">120+</h3>
-        <p class="text-gray-600">Buku Digital</p>
+      <h3 class="text-2xl md:text-3xl font-bold">
+        <?= count($books); ?>+
+      </h3>
+      <p class="text-gray-600">Buku Digital</p>
       </div>
 
       <div class="border border-gray-500 rounded-2xl px-8 py-4">
@@ -50,56 +52,67 @@
 
   </main>
 
-   <!-- Book Slider Section -->
-<section class="relative pt-16 pb-16 overflow-hidden bg-linear-to-b from-[#f8f7f2] to-white">
+   <!-- Book Slider -->
+  <section class="relative pt-16 pb-16 overflow-hidden bg-linear-to-b from-[#f8f7f2] to-white">
 
-  <!-- Book Slider -->
-  <div class="book-marquee relative z-10 flex gap-6 w-max px-6">
+    <div class="book-marquee relative z-10 flex gap-6 w-max px-6">
 
-    <div class="flex gap-6">
-      <div class="
-relative
-w-36 md:w-48
-h-56 md:h-75
+      <div class="flex gap-6">
 
-rounded-r-2xl
-overflow-visible
+        <?php foreach ($books as $book): ?>
 
-transform-gpu
-transition-all
-duration-300
+          <div class="
+          relative
+          w-36 md:w-48
+          h-56 md:h-75
+          rounded-r-2xl
+          overflow-visible
+          transform-gpu
+          transition-all
+          duration-300
+          hover:[transform:perspective(1000px)_rotateY(-10deg)_translateY(-6px)]
+          ">
 
-hover:[transform:perspective(1000px)_rotateY(-10deg)_translateY(-6px)]
-">
+            <!-- Tebal Buku -->
+            <div class="absolute top-2 -right-3 w-5 md:w-6 h-[95%] bg-[#d8d2c7] rounded-r-2xl shadow-[8px_14px_18px_rgba(0,0,0,0.14)]"></div>
 
-  <!-- Tebal Buku -->
-  <div class="absolute top-2 -right-3 w-5 md:w-6 h-[95%] bg-[#d8d2c7] rounded-r-2xl shadow-[8px_14px_18px_rgba(0,0,0,0.14)]"></div>
+            <!-- Halaman -->
+            <div class="absolute top-3 -right-2 w-3 md:w-4 h-[92%] rounded-r-xl bg-gradient-to-r from-white via-[#ebe6de] to-[#cbc3b7]"></div>
 
-  <!-- Halaman -->
-  <div class="absolute top-3 -right-2 w-3 md:w-4 h-[92%] rounded-r-xl bg-gradient-to-r from-white via-[#ebe6de] to-[#cbc3b7]"></div>
+            <!-- Cover -->
+            <div class="relative w-full h-full rounded-r-2xl overflow-hidden shadow-[14px_20px_30px_rgba(0,0,0,0.16)]">
 
-  <!-- Cover -->
-  <div class="relative w-full h-full rounded-r-2xl overflow-hidden shadow-[14px_20px_30px_rgba(0,0,0,0.16)]">
+              <!-- Spine -->
+              <div class="absolute left-0 top-0 w-4 h-full bg-gradient-to-r from-black/45 via-black/15 to-transparent z-20"></div>
 
-    <!-- Spine -->
-    <div class="absolute left-0 top-0 w-4 h-full bg-gradient-to-r from-black/45 via-black/15 to-transparent z-20"></div>
+              <!-- Highlight -->
+              <div class="absolute left-5 top-0 w-[1px] h-full bg-white/30 z-20"></div>
 
-    <!-- Highlight -->
-    <div class="absolute left-5 top-0 w-[1px] h-full bg-white/30 z-20"></div>
+              <?php if (!empty($book['cover'])): ?>
 
-    <!-- Image -->
-    <img 
-      src="https://picsum.photos/300/450?random=1"
-      class="w-full h-full object-cover transition duration-500 hover:scale-105"
-      alt=""
-    >
+                <img 
+                  src="/uploads/<?= htmlspecialchars($book['cover']); ?>"
+                  class="w-full h-full object-cover transition duration-500 hover:scale-105"
+                  alt="<?= htmlspecialchars($book['title']); ?>"
+                >
 
-  </div>
+              <?php else: ?>
 
-</div>
+                <div class="w-full h-full bg-gray-200 flex items-center justify-center text-5xl">
+                  📘
+                </div>
+
+              <?php endif; ?>
+
+            </div>
+
+          </div>
+
+        <?php endforeach; ?>
+
+      </div>
+
     </div>
-
-  </div>
 
   <!-- Rak Buku -->
   <div class="relative z-20 mx-auto w-[92%] max-w-425 mt-3">
@@ -164,171 +177,98 @@ hover:[transform:perspective(1000px)_rotateY(-10deg)_translateY(-6px)]
     <!-- Grid Buku -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-x-12 gap-y-16">
 
-      <!-- CARD -->
-      <div class="group">
+      <?php foreach ($books as $book): ?>
 
-        <!-- Top -->
-        <div class="flex items-center justify-between mb-5">
+        <div class="group">
 
-          <span class="text-sm text-gray-700">
-            Sains
-          </span>
+          <!-- Top -->
+          <div class="flex items-center justify-between mb-5">
 
-          <span class="bg-yellow-300 text-black text-xs font-bold px-3 py-1 rounded-full">
-            PREMIUM
-          </span>
+            <span class="text-sm text-gray-700">
+              <?= htmlspecialchars($book['category']); ?>
+            </span>
 
-        </div>
-
-        <!-- Cover -->
-        <div class="flex justify-center">
-
-          <div class="
-          relative
-          w-44 h-64
-          rounded-r-2xl
-          overflow-visible
-
-          transform-gpu
-          transition-all
-          duration-300
-
-          hover:[transform:perspective(1000px)_rotateY(-10deg)_translateY(-8px)]
-          ">
-
-            <!-- Tebal Buku -->
-            <div class="absolute top-2 -right-3 w-6 h-[95%] bg-[#d7d2c8] rounded-r-2xl shadow-[8px_14px_20px_rgba(0,0,0,0.16)]"></div>
-
-            <!-- Halaman -->
-            <div class="absolute top-3 -right-2 w-4 h-[92%] bg-gradient-to-r from-white via-[#ebe7df] to-[#cfc7bb] rounded-r-xl"></div>
-
-            <!-- Cover Depan -->
-            <div class="relative w-full h-full rounded-r-2xl overflow-hidden shadow-[14px_20px_28px_rgba(0,0,0,0.16)]">
-
-              <!-- Spine -->
-              <div class="absolute left-0 top-0 w-4 h-full bg-gradient-to-r from-black/45 via-black/15 to-transparent z-20"></div>
-
-              <!-- Highlight -->
-              <div class="absolute left-5 top-0 w-[1px] h-full bg-white/35 z-20"></div>
-
-              <!-- Image -->
-              <img 
-                src="https://picsum.photos/300/450?random=11"
-                class="w-full h-full object-cover transition duration-500 hover:scale-105"
-                alt=""
-              >
-
-            </div>
+            <span class="bg-green-200 text-green-800 text-xs font-bold px-3 py-1 rounded-full">
+              GRATIS
+            </span>
 
           </div>
 
-        </div>
+          <!-- Cover -->
+            <a 
+    href="/read/<?= $book['id']; ?>"
+    class="flex justify-center"
+  >
 
-        <!-- Detail -->
-        <h3 class="mt-7 text-2xl font-semibold line-clamp-1">
-          Dari Logika Mistika
-        </h3>
+              <div class="
+              relative
+              w-44 h-64
+              rounded-r-2xl
+              overflow-visible
+              transform-gpu
+              transition-all
+              duration-300
+              hover:[transform:perspective(1000px)_rotateY(-10deg)_translateY(-8px)]
+              ">
 
-        <p class="mt-3 text-gray-500 text-xl">
-          Cania Citta
-        </p>
+                <!-- Tebal Buku -->
+                <div class="absolute top-2 -right-3 w-6 h-[95%] bg-[#d7d2c8] rounded-r-2xl shadow-[8px_14px_20px_rgba(0,0,0,0.16)]"></div>
 
-        <!-- Rating -->
-        <div class="mt-3 flex items-center gap-2">
+                <!-- Halaman -->
+                <div class="absolute top-3 -right-2 w-4 h-[92%] bg-gradient-to-r from-white via-[#ebe7df] to-[#cfc7bb] rounded-r-xl"></div>
 
-          <div class="text-yellow-400 text-xl">
-            ★★★★★
-          </div>
+                <!-- Cover -->
+                <div class="relative w-full h-full rounded-r-2xl overflow-hidden shadow-[14px_20px_28px_rgba(0,0,0,0.16)]">
 
-          <span class="text-gray-600 text-lg">
-            4.8/5
-          </span>
+                  <!-- Spine -->
+                  <div class="absolute left-0 top-0 w-4 h-full bg-gradient-to-r from-black/45 via-black/15 to-transparent z-20"></div>
 
-        </div>
+                  <!-- Highlight -->
+                  <div class="absolute left-5 top-0 w-[1px] h-full bg-white/35 z-20"></div>
 
-        <p class="mt-2 text-gray-600 text-lg">
-          Tersedia: 🇺🇸 English
-        </p>
+                  <?php if (!empty($book['cover'])): ?>
 
-      </div>
+                    <img 
+                      src="/uploads/<?= htmlspecialchars($book['cover']); ?>"
+                      class="w-full h-full object-cover transition duration-500 hover:scale-105"
+                      alt="<?= htmlspecialchars($book['title']); ?>"
+                    >
 
-      <!-- CARD -->
-      <div class="group">
+                  <?php else: ?>
 
-        <div class="flex items-center justify-between mb-5">
+                    <div class="w-full h-full bg-gray-200 flex items-center justify-center text-5xl">
+                      📘
+                    </div>
 
-          <span class="text-sm text-gray-700">
-            Pengembangan Diri
-          </span>
+                  <?php endif; ?>
 
-          <span class="bg-green-200 text-green-800 text-xs font-bold px-3 py-1 rounded-full">
-            GRATIS
-          </span>
+                </div>
 
-        </div>
+              </div>
 
-        <div class="flex justify-center">
+            </a>
 
-          <div class="
-          relative
-          w-44 h-64
-          rounded-r-2xl
-          overflow-visible
+          <!-- Detail -->
+          <h3 class="mt-7 text-2xl font-semibold line-clamp-1">
+  <a 
+    href="/read/<?= $book['id']; ?>"
+    class="hover:text-red-600 transition"
+  >
+    <?= htmlspecialchars($book['title']); ?>
+  </a>
+</h3>
 
-          transform-gpu
-          transition-all
-          duration-300
+          <p class="mt-3 text-gray-500 text-xl">
+            <?= htmlspecialchars($book['author']); ?>
+          </p>
 
-          hover:[transform:perspective(1000px)_rotateY(-10deg)_translateY(-8px)]
-          ">
+          <p class="mt-2 text-gray-600 text-lg">
+            Tersedia: <?= htmlspecialchars($book['language']); ?>
+          </p>
 
-            <div class="absolute top-2 -right-3 w-6 h-[95%] bg-[#d7d2c8] rounded-r-2xl shadow-[8px_14px_20px_rgba(0,0,0,0.16)]"></div>
 
-            <div class="absolute top-3 -right-2 w-4 h-[92%] bg-gradient-to-r from-white via-[#ebe7df] to-[#cfc7bb] rounded-r-xl"></div>
-
-            <div class="relative w-full h-full rounded-r-2xl overflow-hidden shadow-[14px_20px_28px_rgba(0,0,0,0.16)]">
-
-              <div class="absolute left-0 top-0 w-4 h-full bg-gradient-to-r from-black/45 via-black/15 to-transparent z-20"></div>
-
-              <div class="absolute left-5 top-0 w-[1px] h-full bg-white/35 z-20"></div>
-
-              <img 
-                src="https://picsum.photos/300/450?random=12"
-                class="w-full h-full object-cover transition duration-500 hover:scale-105"
-                alt=""
-              >
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <h3 class="mt-7 text-2xl font-semibold line-clamp-1">
-          Keluar dari Gua Mental Block
-        </h3>
-
-        <p class="mt-3 text-gray-500 text-xl">
-          Malaka Books
-        </p>
-
-        <div class="mt-3 flex items-center gap-2">
-
-          <div class="text-yellow-400 text-xl">
-            ★★★★★
-          </div>
-
-          <span class="text-gray-600 text-lg">
-            4.9/5
-          </span>
-
-        </div>
-
-        <p class="mt-2 text-gray-600 text-lg">
-          Tersedia: 🇮🇩 Indonesia
-        </p>
-
-      </div>
+                </div>
+      <?php endforeach; ?>
 
     </div>
 

@@ -138,49 +138,67 @@
 
           </div>
 
-          <!-- Link -->
-          <div>
-            <label class="block text-sm font-semibold mb-2 text-gray-700">
-              Link PDF / Link Baca
-            </label>
+          <!-- Isi Buku -->
+<div>
+  <label class="block text-sm font-semibold mb-2 text-gray-700">
+    Isi Buku
+  </label>
 
-            <input 
-              type="text"
-              name="file_url"
-              placeholder="https://..."
-              class="w-full border border-gray-200 rounded-2xl px-5 py-4 outline-none focus:border-red-500"
-            >
-          </div>
+  <textarea
+    name="content"
+    rows="18"
+    placeholder="Tulis isi buku di sini..."
+    class="w-full border border-gray-200 rounded-3xl px-5 py-5 outline-none focus:border-red-500 resize-none leading-relaxed"
+  ></textarea>
+
+  <p class="text-sm text-gray-500 mt-3">
+    Isi buku dapat diatur tampilannya saat dibaca seperti ukuran teks, font, dan mode gelap.
+  </p>
+</div>
 
           <!-- Upload -->
-          <div>
-            <label class="block text-sm font-semibold mb-2 text-gray-700">
-              Cover Buku
-            </label>
+<div>
+  <label class="block text-sm font-semibold mb-2 text-gray-700">
+    Cover Buku
+  </label>
 
-            <label class="border-2 border-dashed border-gray-300 rounded-3xl p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:border-red-400 transition">
+  <label
+    class="border-2 border-dashed border-gray-300 rounded-3xl p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:border-red-400 transition relative overflow-hidden"
+  >
 
-              <div class="text-5xl mb-4">
-                📘
-              </div>
+    <!-- Preview -->
+    <img
+      id="coverPreview"
+      class="hidden w-full rounded-2xl shadow mb-5 object-cover"
+    >
 
-              <h3 class="text-lg font-semibold">
-                Upload Cover Buku
-              </h3>
+    <!-- Placeholder -->
+    <div id="uploadPlaceholder">
 
-              <p class="text-gray-500 text-sm mt-2">
-                JPG, PNG, WEBP • Maks 2MB
-              </p>
+      <div class="text-5xl mb-4">
+        📘
+      </div>
 
-              <input 
-                type="file"
-                name="cover"
-                accept="image/*"
-                class="hidden"
-              >
+      <h3 class="text-lg font-semibold">
+        Upload Cover Buku
+      </h3>
 
-            </label>
-          </div>
+      <p class="text-gray-500 text-sm mt-2">
+        JPG, PNG, WEBP • Maks 2MB
+      </p>
+
+    </div>
+
+    <input 
+      type="file"
+      name="cover"
+      accept="image/*"
+      class="hidden"
+      onchange="previewCover(event)"
+    >
+
+  </label>
+</div>
 
           <!-- Buttons -->
           <div class="flex flex-wrap gap-4 pt-4">
@@ -240,9 +258,9 @@
             </div>
 
             <div class="flex items-center gap-3">
-              <span>✅</span>
-              Link baca valid
-            </div>
+  <span>✅</span>
+  Isi buku lengkap
+</div>
 
             <div class="flex items-center gap-3">
               <span>✅</span>
@@ -259,6 +277,27 @@
   </main>
 
 </div>
+<script>
 
+function previewCover(event)
+{
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    const preview =
+        document.getElementById('coverPreview');
+
+    const placeholder =
+        document.getElementById('uploadPlaceholder');
+
+    preview.src = URL.createObjectURL(file);
+
+    preview.classList.remove('hidden');
+
+    placeholder.classList.add('hidden');
+}
+
+</script>
 </body>
 </html>
