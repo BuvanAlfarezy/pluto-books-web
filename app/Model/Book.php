@@ -30,7 +30,7 @@ class Book
     public function create($data)
     {
         $stmt = $this->db->prepare("
-            INSERT INTO books (title, author, category, language, cover, file_url)
+            INSERT INTO books (title, author, category, language, cover, content)
             VALUES (?, ?, ?, ?, ?, ?)
         ");
 
@@ -40,7 +40,7 @@ class Book
             $data['category'],
             $data['language'],
             $data['cover'],
-            $data['file_url'],
+            $data['content'],
         ]);
     }
 
@@ -48,7 +48,7 @@ class Book
     {
         $stmt = $this->db->prepare("
             UPDATE books 
-            SET title = ?, author = ?, category = ?, language = ?, cover = ?, file_url = ?
+            SET title = ?, author = ?, category = ?, language = ?, cover = ?, content = ?
             WHERE id = ?
         ");
 
@@ -58,7 +58,7 @@ class Book
             $data['category'],
             $data['language'],
             $data['cover'],
-            $data['file_url'],
+            $data['content'],
             $id
         ]);
     }

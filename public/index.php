@@ -11,6 +11,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 Router::get('/', HomeController::class, 'index');
 Router::get('/home', HomeController::class, 'index');
+Router::get('/read/{id}', BookController::class, 'read');
 
 
 Router::get('/admin/login', AuthController::class, 'login');

@@ -60,7 +60,7 @@ class BookController
             'category' => $_POST['category'],
             'language' => $_POST['language'],
             'cover' => $coverName,
-            'file_url' => $_POST['file_url'],
+            'content' => $_POST['content'],
         ]);
 
         header('Location: /admin/books');
@@ -111,7 +111,7 @@ class BookController
         'category' => $_POST['category'],
         'language' => $_POST['language'],
         'cover' => $coverName,
-        'file_url' => $_POST['file_url'],
+        'content' => $_POST['content'],
     ]);
 
     header('Location: /admin/books');
@@ -128,4 +128,17 @@ class BookController
         header('Location: /admin/books');
         exit;
     }
+
+    public function read($id)
+{
+    $bookModel = new Book();
+    $book = $bookModel->find($id);
+
+    if (!$book) {
+        echo "Buku tidak ditemukan";
+        exit;
+    }
+
+    require __DIR__ . '/../View/Home/read.php';
+}
 }

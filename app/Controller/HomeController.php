@@ -4,6 +4,7 @@ namespace Advan\BooksWeb\Controller;
 
 use Advan\BooksWeb\Core\Controller;
 use Advan\BooksWeb\Config\Database;
+use Advan\BooksWeb\Model\Book;
 
 class HomeController extends Controller
 {
@@ -13,9 +14,13 @@ class HomeController extends Controller
 
         // $posts = $postModel->getAll();
 
+        $bookModel = new Book();
+
+        $books = $bookModel->all();
+
         $this->view('Home/index', [
             'title' => 'Home',
-            // 'posts' => $posts
+            'books' => $books
         ]);
     }
 }

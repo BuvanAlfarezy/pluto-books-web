@@ -137,19 +137,22 @@
 
           </div>
 
-          <!-- Link -->
-          <div>
-            <label class="block text-sm font-semibold mb-2 text-gray-700">
-              Link PDF / Link Baca
-            </label>
+          <!-- Isi Buku -->
+<div>
+  <label class="block text-sm font-semibold mb-2 text-gray-700">
+    Isi Buku
+  </label>
 
-            <input 
-              type="text"
-              name="file_url"
-              value="<?= htmlspecialchars($book['file_url']); ?>"
-              class="w-full border border-gray-200 rounded-2xl px-5 py-4 outline-none focus:border-red-500"
-            >
-          </div>
+  <textarea
+    name="content"
+    rows="18"
+    class="w-full border border-gray-200 rounded-3xl px-5 py-5 outline-none focus:border-red-500 resize-none leading-relaxed"
+  ><?= htmlspecialchars($book['content']); ?></textarea>
+
+  <p class="text-sm text-gray-500 mt-3">
+    Isi buku dapat diatur tampilannya saat dibaca seperti ukuran teks, font, dan mode gelap.
+  </p>
+</div>
 
           <!-- Cover Lama -->
           <?php if (!empty($book['cover'])): ?>
@@ -162,57 +165,53 @@
 
                 <img 
                   src="/uploads/<?= htmlspecialchars($book['cover']); ?>"
-                  class="w-28 h-40 object-cover rounded-2xl shadow"
+                  class="w-full h-full object-cover rounded-2xl shadow"
                   alt="<?= htmlspecialchars($book['title']); ?>"
                 >
 
-                <div>
-                  <h3 class="font-bold text-lg">
-                    <?= htmlspecialchars($book['title']); ?>
-                  </h3>
-
-                  <p class="text-gray-500 mt-1">
-                    <?= htmlspecialchars($book['author']); ?>
-                  </p>
-
-                  <div class="mt-4 inline-block bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded-full">
-                    Cover Aktif
-                  </div>
-                </div>
+               
 
               </div>
             </div>
           <?php endif; ?>
 
           <!-- Upload Baru -->
-          <div>
-            <label class="block text-sm font-semibold mb-2 text-gray-700">
-              Ganti Cover Buku
-            </label>
+<div>
+  <label class="block text-sm font-semibold mb-2 text-gray-700">
+    Ganti Cover Buku
+  </label>
 
-            <label class="border-2 border-dashed border-gray-300 rounded-3xl p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:border-red-400 transition">
+  <label class="border-2 border-dashed border-gray-300 rounded-3xl p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:border-red-400 transition">
 
-              <div class="text-5xl mb-4">
-                🖼️
-              </div>
+    <img
+      id="coverPreview"
+      class="hidden w-full h-full object-cover rounded-2xl shadow mb-5"
+    >
 
-              <h3 class="text-lg font-semibold">
-                Upload Cover Baru
-              </h3>
+    <div id="uploadPlaceholder">
+      <div class="text-5xl mb-4">
+        🖼️
+      </div>
 
-              <p class="text-gray-500 text-sm mt-2">
-                JPG, PNG, WEBP • Maks 2MB
-              </p>
+      <h3 class="text-lg font-semibold">
+        Upload Cover Baru
+      </h3>
 
-              <input 
-                type="file"
-                name="cover"
-                accept="image/*"
-                class="hidden"
-              >
+      <p class="text-gray-500 text-sm mt-2">
+        JPG, PNG, WEBP • Maks 2MB
+      </p>
+    </div>
 
-            </label>
-          </div>
+    <input 
+      type="file"
+      name="cover"
+      accept="image/*"
+      class="hidden"
+      onchange="previewCover(event)"
+    >
+
+  </label>
+</div>
 
           <!-- Button -->
           <div class="flex flex-wrap gap-4 pt-4">
@@ -297,6 +296,20 @@
   </main>
 
 </div>
+<script>
+function previewCover(event)
+{
+    const file = event.target.files[0];
 
+    if (!file) return;
+
+    const preview = document.getElementById('coverPreview');
+    const placeholder = document.getElementById('uploadPlaceholder');
+
+    preview.src = URL.createObjectURL(file);
+    preview.classList.remove('hidden');
+    placeholder.classList.add('hidden');
+}
+</script>
 </body>
 </html>
