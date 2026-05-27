@@ -16,7 +16,7 @@ class HomeController extends Controller
 
         $bookModel = new Book();
 
-        $books = $bookModel->all();
+        $books = $bookModel->allForHome();
 
         $this->view('Home/index', [
             'title' => 'Home',

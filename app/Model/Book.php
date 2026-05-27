@@ -68,4 +68,26 @@ class Book
         $stmt = $this->db->prepare("DELETE FROM books WHERE id = ?");
         return $stmt->execute([$id]);
     }
+
+    public function allForHome()
+{
+    $stmt = $this->db->query("
+        SELECT id, title, author, category, language, cover
+        FROM books
+        ORDER BY id DESC
+    ");
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function allForAdmin()
+{
+    $stmt = $this->db->query("
+        SELECT id, title, author, category, language, cover
+        FROM books
+        ORDER BY id DESC
+    ");
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

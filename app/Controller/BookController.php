@@ -19,18 +19,22 @@ class BookController
     public function dashboard()
     {
         $this->checkAdmin();
-        require __DIR__ . '/../View/Admin/dashboard.php';
-    }
-
-    public function books()
-    {
-        $this->checkAdmin();
 
         $bookModel = new Book();
         $books = $bookModel->all();
 
-        require __DIR__ . '/../View/Admin/books.php';
+        require __DIR__ . '/../View/Admin/dashboard.php';
     }
+
+    public function books()
+{
+    $this->checkAdmin();
+
+    $bookModel = new Book();
+    $books = $bookModel->allForAdmin();
+
+    require __DIR__ . '/../View/Admin/books.php';
+}
 
     public function create()
     {
